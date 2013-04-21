@@ -6,5 +6,13 @@
 </head>
 <body>
   <h1>Hello World!</h1>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message|safe }}</div>
+  {% endfor %}
+
+  <form action="{{ url_for('home') }}" method=post class=add-entry>
+    <input type=text size=30 name=url>
+    <input type=submit value=Shorten>
+  </form>
 </body>
 </html>
