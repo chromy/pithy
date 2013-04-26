@@ -1,7 +1,7 @@
 import pithy
-from flask import redirect
 
 from bs4 import BeautifulSoup
+from urlparse import urlparse
 from attest import Tests
 system = Tests()
 
@@ -12,7 +12,8 @@ def extract_short_url(data):
     soup = BeautifulSoup(data)
     links = soup.findAll('a', {'class':'short-link'})
     assert len(links) == 1
-    return links[0].get_text()
+    link = links[0].get_text()
+    return urlparse(link).path
 
 @system.context
 def connect():
@@ -30,8 +31,10 @@ def should_greet_us(app):
 @system.test
 def should_shorten_url(app):
     response = app.post('/', data={'url':'http://www.example.com'})
+    print response.data
     short_url = extract_short_url(response.data)
     response = app.get(short_url)
+    print response.data
     assert response.status_code == 302
     assert response.location == 'http://www.example.com'
 
