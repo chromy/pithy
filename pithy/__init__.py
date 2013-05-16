@@ -1,3 +1,4 @@
+from urlparse import urlparse
 from flask import Flask, request, render_template, flash, redirect, \
     abort, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -8,8 +9,6 @@ app.secret_key = 'a'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 from models import Link
-
-URLS = {}
 
 @app.route('/',  methods=['GET', 'POST'])
 def home():
@@ -32,7 +31,14 @@ def redirect_short_url(identifier):
     else:
         abort(404)
 
+def normalise_url(url):
+    """Adds http to url if url has no protocol."""
+    if urlparse(url).scheme == '':
+        return 'http://' + url
+    return url
+
 def shorten_link(url):
+    url = normalise_url(url)
     identifier = Link.create(url)
     return url_for('redirect_short_url', identifier=identifier, _external=True)
 

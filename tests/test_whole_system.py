@@ -31,11 +31,18 @@ def should_greet_us(app):
 @system.test
 def should_shorten_url(app):
     response = app.post('/', data={'url':'http://www.example.com'})
-    print response.data
     short_url = extract_short_url(response.data)
     response = app.get(short_url)
-    print response.data
     assert response.status_code == 302
+    assert response.location == 'http://www.example.com'
+
+@system.test
+def should_handle_urls_without_protocol(app):
+    response = app.post('/', data={'url':'www.example.com'})
+    short_url = extract_short_url(response.data)
+    response = app.get(short_url)
+    assert response.status_code == 302
+    print response.location
     assert response.location == 'http://www.example.com'
 
 @system.test
