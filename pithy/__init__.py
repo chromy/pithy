@@ -1,3 +1,4 @@
+import os
 from urlparse import urlparse
 from flask import Flask, request, render_template, flash, redirect, \
     abort, url_for
@@ -6,7 +7,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__.split('.')[0])
 app.secret_key = 'a'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('PITHY_DATABASE_URI', 'sqlite:////tmp/test.db')
+
 db = SQLAlchemy(app)
 from models import Link
 
