@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/site.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/buttons.css') }}"/>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,400' rel='stylesheet' type='text/css'/>
   <title>pithy</title>
 </head>
@@ -22,8 +23,8 @@
     </div>
 
     <form action="{{ url_for('home') }}" method=post class=add-entry>
-      <input type=text size=30 name=url>
-      <button class="btn" type="submit">Shorten!</button>
+      <input type=text size=30 name=url placeholder="www.areallylongurl.com">
+      <button class="btn btn-large btn-inverse" type="submit">Shorten!</button>
     </form>
   </div>
 </body>

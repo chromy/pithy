@@ -45,7 +45,8 @@ a {
 input { 
     padding: 10px;
     font-size: 26px;
-    margin: auto;
+    margin: 5px auto;
     display: block;
+    text-align: center;
 }
 
