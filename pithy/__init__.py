@@ -14,14 +14,12 @@ from models import Link
 def home():
     if request.method == 'POST':
         url = request.form['url']
-        short_url = shorten_link(url)
-        flash_short_url(url, short_url)
+        if url == '':
+            flash('Please enter a URL below.')
+        else:
+            short_url = shorten_link(url)
+            flash_short_url(url, short_url)
     return render_template('index.html')
-
-@app.route('/debug')
-def debug():
-    Link.create('http://www.hello.com')
-    1/0
 
 @app.route('/<identifier>')
 def redirect_short_url(identifier):
