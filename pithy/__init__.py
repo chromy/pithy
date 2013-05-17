@@ -43,6 +43,8 @@ def shorten_link(url):
     return url_for('redirect_short_url', identifier=identifier, _external=True)
 
 def flash_short_url(url, short_url):
-    s = '<a href="{url}">{url}</a> \
-        <a href="{short_url}" class="short-link">{short_url}</a>'
-    flash(s.format(url=url, short_url=short_url))
+    url_href = normalise_url(url)
+    link = short_url.replace('http://', '')
+    s = '<h2><a href="{}">{}</a> can now be found at \
+        <a href="{}" class="short-link">{}</a></h2>'
+    flash(s.format(url_href, url, short_url, link))
