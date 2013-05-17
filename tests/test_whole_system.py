@@ -26,7 +26,7 @@ def connect():
 @system.test
 def should_greet_us(app):
     response = app.get('/')
-    assert 'Hello World' in response.data
+    assert 'pithy' in response.data
 
 @system.test
 def should_shorten_url(app):

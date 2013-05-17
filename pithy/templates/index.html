@@ -1,18 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/site.css') }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,400' rel='stylesheet' type='text/css'/>
   <title>pithy</title>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message|safe }}</div>
-  {% endfor %}
+  <a href="https://github.com/chromy/pithy"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+  <div class="inner">
+    <div class="header">
+      <h1>pithy</h1>
+      <h2>A url shortener.</h2>
+      <h2>An example of a <a href="http://flask.pocoo.org/">flask</a> app.</h2>
+    </div>
 
-  <form action="{{ url_for('home') }}" method=post class=add-entry>
-    <input type=text size=30 name=url>
-    <input type=submit value=Shorten>
-  </form>
+    <div class="messages">
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message|safe }}</div>
+      {% endfor %}
+    </div>
+
+    <form action="{{ url_for('home') }}" method=post class=add-entry>
+      <input type=text size=30 name=url>
+      <button class="btn" type="submit">Shorten!</button>
+    </form>
+  </div>
 </body>
 </html>
